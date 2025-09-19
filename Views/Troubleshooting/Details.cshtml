@@ -1,0 +1,133 @@
+﻿@model OMSys.Models.TroubleshootingView
+
+@{
+    Layout = "_LayoutUser";
+    ViewData["Title"] = "Detail Troubleshooting";
+}
+
+<div class="container mt-4">
+    <h3 class="fw-bold text-danger">Detail Troubleshooting</h3>
+
+    <!-- Info Umum -->
+    <div class="mb-3">
+        <p><strong>Unit:</strong> @Model.UnitName (@Model.Brand)</p>
+        <p><strong>Komponen:</strong> @Model.ComponentName</p>
+        <p><strong>Gejala:</strong> @Model.SymptomDescription</p>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <!-- Step List Kiri -->
+        <div class="col-md-4">
+            <ul class="list-group" id="stepList">
+                @for (int i = 0; i < Model.Steps.Count; i++)
+                {
+                    var step = Model.Steps[i];
+                    <li class="list-group-item step-item @(i == 0 ? "active" : "")"
+                        data-step="@i"
+                        style="cursor:pointer;">
+                        @($"{i + 1}. {step.Instruction}")
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <!-- Detail Step Kanan -->
+        <div class="col-md-8">
+            @for (int i = 0; i < Model.Steps.Count; i++)
+            {
+                var step = Model.Steps[i];
+                <div class="step-detail" id="step-@i" style="display:@(i == 0 ? "block" : "none");">
+                    <p><strong>Instruksi:</strong> @step.Instruction</p>
+                    <p><strong>Hasil:</strong> @step.Result</p>
+
+                    <!-- Tombol Diagnosa & Indikasi -->
+                    <button type="button" class="btn btn-outline-info" data-bs-toggle="collapse" data-bs-target="#diag-@i">
+                        Lihat Diagnosa & Indikasi
+                    </button>
+
+                    <div id="diag-@i" class="collapse mt-2">
+                        <p><strong>Diagnosa:</strong> @step.Diagnosis</p>
+                        <p><strong>Indikasi & Langkah Perbaikan:</strong> @step.Solution</p>
+                    </div>
+
+                    <!-- Tombol Navigasi -->
+                    <div class="mt-3 d-flex justify-content-between">
+                       <button class="btn btn-secondary prev-step" data-step="@i" disabled="@(i == 0 ? "disabled" : null)">Sebelumnya</button>
+<button class="btn btn-primary next-step" data-step="@i" disabled="@(i == Model.Steps.Count - 1 ? "disabled" : null)">Lanjutkan</button>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary">Kembali</a>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .step-item {
+            transition: 0.2s ease-in-out;
+        }
+
+            .step-item:hover {
+                background-color: #f8d7da; /* merah muda saat hover */
+            }
+
+            .step-item.active {
+                background-color: #dc3545; /* merah bootstrap */
+                color: white;
+                font-weight: bold;
+            }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const stepItems = document.querySelectorAll(".step-item");
+            const stepDetails = document.querySelectorAll(".step-detail");
+
+            function showStep(index) {
+                // sembunyikan semua detail
+                stepDetails.forEach((el, i) => {
+                    el.style.display = i === index ? "block" : "none";
+                });
+
+                // hilangkan active di semua step
+                stepItems.forEach(el => el.classList.remove("active"));
+
+                // tandai step aktif
+                stepItems[index].classList.add("active");
+
+                // auto scroll biar step aktif selalu kelihatan
+                stepItems[index].scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+
+            stepItems.forEach(item => {
+                item.addEventListener("click", function () {
+                    const index = parseInt(this.getAttribute("data-step"));
+                    showStep(index);
+                });
+            });
+
+            document.querySelectorAll(".prev-step").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    const current = parseInt(this.getAttribute("data-step"));
+                    if (current > 0) showStep(current - 1);
+                });
+            });
+
+            document.querySelectorAll(".next-step").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    const current = parseInt(this.getAttribute("data-step"));
+                    if (current < stepDetails.length - 1) showStep(current + 1);
+                });
+            });
+        });
+    </script>
+}

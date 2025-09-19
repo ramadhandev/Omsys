@@ -1,0 +1,191 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = OMSys
+build_property.RootNamespace = OMSys
+build_property.ProjectDir = D:\Project aplikasi\OMSys\OMSys\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Project aplikasi\OMSys\OMSys
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Components/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcG9uZW50c1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Components/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcG9uZW50c1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Components/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcG9uZW50c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Components/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcG9uZW50c1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Components/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcG9uZW50c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Dashboard/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXFByaXZhY3kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/DiagnosisSteps/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlhZ25vc2lzU3RlcHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/DiagnosisSteps/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlhZ25vc2lzU3RlcHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/DiagnosisSteps/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlhZ25vc2lzU3RlcHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/DiagnosisSteps/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlhZ25vc2lzU3RlcHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/DiagnosisSteps/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlhZ25vc2lzU3RlcHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Shared/_LayoutLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Shared/_LayoutUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Solutions/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29sdXRpb25zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Solutions/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29sdXRpb25zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Solutions/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29sdXRpb25zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Solutions/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29sdXRpb25zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Solutions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29sdXRpb25zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/StepResults/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RlcFJlc3VsdHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/StepResults/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RlcFJlc3VsdHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/StepResults/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RlcFJlc3VsdHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/StepResults/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RlcFJlc3VsdHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/StepResults/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RlcFJlc3VsdHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Symptoms/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ltcHRvbXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Symptoms/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ltcHRvbXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Symptoms/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ltcHRvbXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Symptoms/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ltcHRvbXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Symptoms/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ltcHRvbXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Troubleshooting/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJvdWJsZXNob290aW5nXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Troubleshooting/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJvdWJsZXNob290aW5nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Units/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVW5pdHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Units/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVW5pdHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Units/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVW5pdHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Units/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVW5pdHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project aplikasi/OMSys/OMSys/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-cjpfwfnpro

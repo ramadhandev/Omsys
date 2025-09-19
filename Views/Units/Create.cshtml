@@ -1,0 +1,48 @@
+﻿@model OMSys.Models.Unit
+@{
+    ViewData["Title"] = "Create Unit";
+}
+
+<div class="card shadow-sm">
+    <div class="card-header bg-danger text-white fw-bold">
+        <i class="bi bi-plus-circle"></i> Create Unit
+    </div>
+    <div class="card-body">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="UnitName" class="form-label fw-bold"></label>
+                <input asp-for="UnitName" class="form-control" />
+                <span asp-validation-for="UnitName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Brand" class="form-label fw-bold"></label>
+                <input asp-for="Brand" class="form-control" />
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Type" class="form-label fw-bold"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to List
+                </a>
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-save"></i> Create
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

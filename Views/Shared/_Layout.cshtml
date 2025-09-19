@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OMSys</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/OMSys.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 230px;
+            background: #ffffff;
+            border-right: 1px solid #e6e6e6;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+
+            /* Brand */
+            .sidebar .navbar-brand {
+                font-weight: bold;
+                font-size: 1.2rem;
+                color: #dc3545;
+            }
+
+            /* Nav links */
+            .sidebar .nav-link {
+                color: #444;
+                border-radius: 6px;
+                padding: 10px 15px;
+                margin-bottom: 5px;
+                transition: all 0.2s ease-in-out;
+            }
+
+                /* Hover effect */
+                .sidebar .nav-link:hover {
+                    background-color: #f1f1f1;
+                    color: #dc3545;
+                    transform: translateX(5px);
+                }
+
+                /* Active menu */
+                .sidebar .nav-link.active {
+                    background-color: #dc3545;
+                    color: #fff !important;
+                    font-weight: 600;
+                    box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
+                }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 20px;
+            background: #fafafa;
+        }
+
+        /* User info + logout */
+        .sidebar .user-info {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .sidebar button,
+        .sidebar a.btn {
+            border-radius: 6px;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar d-flex flex-column p-3">
+        <a class="navbar-brand mb-3" asp-controller="Home" asp-action="Index">OMSys</a>
+
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a class="nav-link @((ViewContext.RouteData.Values["controller"]?.ToString() == "Troubleshooting") ? "active" : "")"
+                   asp-controller="Troubleshooting" asp-action="Index">Troubleshooting</a>
+            </li>
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="nav-item"><a class="nav-link" asp-controller="Units" asp-action="Index">Units</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="Components" asp-action="Index">Components</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="Symptoms" asp-action="Index">Symptoms</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="DiagnosisSteps" asp-action="Index">Diagnosis Steps</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="StepResults" asp-action="Index">Step Results</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="Solutions" asp-action="Index">Solutions</a></li>
+            }
+        </ul>
+
+        <hr />
+        <div class="mt-auto">
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <span class="d-block mb-2">Hello, @User.Identity.Name</span>
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="btn btn-sm btn-outline-danger w-100">Logout</button>
+                </form>
+            }
+            else
+            {
+                <a class="btn btn-sm btn-outline-primary w-100" asp-controller="Account" asp-action="Login">Login</a>
+            }
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="content">
+        @RenderBody()
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<OMSys.Models.Unit>
+
+@{
+    ViewData["Title"] = "Units";
+}
+
+<div class="card shadow-sm">
+    <div class="card-header bg-light fw-bold">
+        <i class="bi bi-list-ul"></i> Units List
+    </div>
+    <div class="card-body">
+        <p>
+            <a asp-action="Create" class="btn btn-sm btn-danger">
+                <i class="bi bi-plus-circle"></i> Create New
+            </a>
+        </p>
+
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-secondary">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.UnitName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Brand)</th>
+                    <th>@Html.DisplayNameFor(model => model.Type)</th>
+                    <th style="width:150px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.UnitName</td>
+                        <td>@item.Brand</td>
+                        <td>@item.Type</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.UnitId" class="btn btn-sm btn-warning text-white">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.UnitId" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

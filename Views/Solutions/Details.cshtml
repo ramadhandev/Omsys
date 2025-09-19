@@ -1,0 +1,42 @@
+﻿@model OMSys.Models.Solution
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Solution</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SpareParts)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SpareParts)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Symptom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Symptom.SymptomName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.SolutionId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
