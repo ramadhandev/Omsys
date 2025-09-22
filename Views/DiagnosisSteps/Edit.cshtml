@@ -10,14 +10,14 @@
             <h3 class="mb-0">@ViewData["Title"]</h3>
         </div>
         <div class="card-body">
-            <form asp-action="Edit" method="post">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
                 <input type="hidden" asp-for="StepId" />
 
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                 <div class="mb-3">
                     <label asp-for="SymptomId" class="form-label"></label>
-                    <select asp-for="SymptomId" class="form-select" asp-items="ViewBag.SymptomId"></select>
+                    <select asp-for="SymptomId" class="form-select" asp-items="@(ViewData["SymptomId"] as SelectList)"></select>
                     <span asp-validation-for="SymptomId" class="text-danger"></span>
                 </div>
 
@@ -39,6 +39,22 @@
                     <span asp-validation-for="Instruction" class="text-danger"></span>
                 </div>
 
+                @* Preview gambar lama jika ada *@
+                @if (!string.IsNullOrEmpty(Model.ImagePath))
+                {
+                    <div class="mb-3">
+                        <label class="form-label">Gambar Saat Ini:</label>
+                        <div>
+                            <img src="@Model.ImagePath" class="img-fluid rounded mb-2" style="max-height:200px;" />
+                        </div>
+                    </div>
+                }
+
+                <div class="mb-3">
+                    <label class="form-label">Ganti / Upload Gambar Baru:</label>
+                    <input type="file" name="ImageFile" class="form-control" />
+                </div>
+
                 <div class="d-flex justify-content-between mt-4">
                     <a asp-action="Index" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Cancel
@@ -52,10 +68,6 @@
     </div>
 </div>
 
-
-
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }

@@ -14,9 +14,8 @@ namespace OMSys.Models
         public string Instruction { get; set; } = string.Empty;
 
         [Required]
-        public string Diagnosis { get; set; } = string.Empty; 
-
-        // Navigation
+        public string Diagnosis { get; set; } = string.Empty;
+        public string? ImagePath { get; set; }
         public Symptom? Symptom { get; set; }
         public ICollection<StepResult> StepResults { get; set; } = new List<StepResult>();
     }

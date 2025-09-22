@@ -17,6 +17,7 @@
         public int StepNumber { get; set; }
         public string Instruction { get; set; } = string.Empty;
         public string Result { get; set; } = string.Empty;
+        public string? ImagePath { get; set; }
         public string Diagnosis { get; set; } = string.Empty;
         public string Solution { get; set; } = string.Empty;
     }

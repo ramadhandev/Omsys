@@ -106,7 +106,8 @@ namespace OMSys.Controllers
                         Instruction = ds.Instruction ?? "-",
                         Result = sr.ResultOption ?? "-",
                         Diagnosis = ds.Diagnosis ?? "-",
-                        Solution = sr.Solution?.IndicationAndRepair ?? "-" 
+                        Solution = sr.Solution?.IndicationAndRepair ?? "-",
+                        ImagePath = ds.ImagePath
                     }))
                     .ToList()
             };

@@ -42,6 +42,34 @@
                     <p><strong>Instruksi:</strong> @step.Instruction</p>
                     <p><strong>Hasil:</strong> @step.Result</p>
 
+                    @if (!string.IsNullOrEmpty(step.ImagePath))
+                    {
+                        <div class="mb-2">
+                            <img src="@Url.Content(step.ImagePath)"
+                                 alt="Step Image"
+                                 class="img-thumbnail thumb-img"
+                                 style="width: 100px; cursor:pointer;"
+                                 data-bs-toggle="modal"
+                                 data-bs-target="#imageModal"
+                                 data-img="@Url.Content(step.ImagePath)" />
+                        </div>
+                    }
+
+                    
+                    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-body p-0">
+                                    <img src="" id="modalImage" class="img-fluid w-100" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <!-- Tombol Diagnosa & Indikasi -->
                     <button type="button" class="btn btn-outline-info" data-bs-toggle="collapse" data-bs-target="#diag-@i">
                         Lihat Diagnosa & Indikasi
@@ -68,66 +96,8 @@
     </div>
 </div>
 
-@section Styles {
-    <style>
-        .step-item {
-            transition: 0.2s ease-in-out;
-        }
 
-            .step-item:hover {
-                background-color: #f8d7da; /* merah muda saat hover */
-            }
-
-            .step-item.active {
-                background-color: #dc3545; /* merah bootstrap */
-                color: white;
-                font-weight: bold;
-            }
-    </style>
-}
 
 @section Scripts {
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const stepItems = document.querySelectorAll(".step-item");
-            const stepDetails = document.querySelectorAll(".step-detail");
-
-            function showStep(index) {
-                // sembunyikan semua detail
-                stepDetails.forEach((el, i) => {
-                    el.style.display = i === index ? "block" : "none";
-                });
-
-                // hilangkan active di semua step
-                stepItems.forEach(el => el.classList.remove("active"));
-
-                // tandai step aktif
-                stepItems[index].classList.add("active");
-
-                // auto scroll biar step aktif selalu kelihatan
-                stepItems[index].scrollIntoView({ behavior: "smooth", block: "nearest" });
-            }
-
-            stepItems.forEach(item => {
-                item.addEventListener("click", function () {
-                    const index = parseInt(this.getAttribute("data-step"));
-                    showStep(index);
-                });
-            });
-
-            document.querySelectorAll(".prev-step").forEach(btn => {
-                btn.addEventListener("click", function () {
-                    const current = parseInt(this.getAttribute("data-step"));
-                    if (current > 0) showStep(current - 1);
-                });
-            });
-
-            document.querySelectorAll(".next-step").forEach(btn => {
-                btn.addEventListener("click", function () {
-                    const current = parseInt(this.getAttribute("data-step"));
-                    if (current < stepDetails.length - 1) showStep(current + 1);
-                });
-            });
-        });
-    </script>
+    <script src="~/js/Custom.js"></script>
 }
