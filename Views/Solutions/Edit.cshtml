@@ -4,43 +4,42 @@
     ViewData["Title"] = "Edit Solution";
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-        <div class="card shadow-lg border-0 rounded-3">
-            <div class="card-header bg-warning text-dark text-center py-3">
-                <h4 class="mb-0">@ViewData["Title"]</h4>
-            </div>
-            <div class="card-body p-4">
-                <form asp-action="Edit">
-                    <input type="hidden" asp-for="SolutionId" />
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-warning text-dark">
+            <h3 class="mb-0">@ViewData["Title"]</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="SolutionId" />
 
-                    <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-                    <div class="mb-3">
-                        <label asp-for="SymptomId" class="form-label fw-semibold"></label>
-                        <select asp-for="SymptomId" class="form-select shadow-sm" asp-items="ViewBag.SymptomId"></select>
-                        <span asp-validation-for="SymptomId" class="text-danger small"></span>
-                    </div>
+                <div class="mb-3">
+                    <label asp-for="SymptomId" class="form-label"></label>
+                    <select asp-for="SymptomId" class="form-select" asp-items="ViewBag.SymptomId"></select>
+                    <span asp-validation-for="SymptomId" class="text-danger"></span>
+                </div>
 
-                    <div class="mb-3">
-                        <label asp-for="IndicationAndRepair" class="form-label fw-semibold"></label>
-                        <input asp-for="IndicationAndRepair" class="form-control shadow-sm" placeholder="Enter solution Indication And Repair..." />
-                        <span asp-validation-for="IndicationAndRepair" class="text-danger small"></span>
-                    </div>
+                <div class="mb-3">
+                    <label asp-for="IndicationAndRepair" class="form-label"></label>
+                    <input asp-for="IndicationAndRepair" class="form-control" placeholder="Enter solution Indication And Repair..." />
+                    <span asp-validation-for="IndicationAndRepair" class="text-danger"></span>
+                </div>
 
-                    <div class="d-flex justify-content-between mt-4">
-                        <a asp-action="Index" class="btn btn-outline-secondary px-4">
-                            <i class="bi bi-arrow-left-circle"></i> Back to List
-                        </a>
-                        <button type="submit" class="btn btn-warning text-dark px-4">
-                            <i class="bi bi-save"></i> Save Changes
-                        </button>
-                    </div>
-                </form>
-            </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Cancel
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Save
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     @{

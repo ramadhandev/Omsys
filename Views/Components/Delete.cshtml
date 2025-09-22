@@ -4,13 +4,14 @@
     ViewData["Title"] = "Delete Component";
 }
 
-<h1 class="mb-4 text-danger">Delete Component</h1>
-
-<h4>Are you sure you want to delete this?</h4>
-<hr />
-
 <div class="card shadow-sm">
+    <div class="card-header bg-danger text-white fw-bold">
+        <i class="bi bi-exclamation-triangle-fill"></i> Delete Component
+    </div>
     <div class="card-body">
+        <h5>Are you sure you want to delete this component?</h5>
+        <hr />
+
         <dl class="row">
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Name)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
@@ -19,12 +20,16 @@
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
 
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Unit)</dt>
-            <dd class="col-sm-9">@(Model.Unit?.UnitName ?? "N/A")</dd>
+            <dd class="col-sm-9">
+                @(Model.Unit != null ? Model.Unit.UnitName : "N/A")
+            </dd>
         </dl>
 
-        <form asp-action="Delete" asp-controller="Components" method="post">
+        <form asp-action="Delete" asp-controller="Components" method="post"
+              onsubmit="return confirm('Are you sure you want to delete this component?');">
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="ComponentId" />
+
             <button type="submit" class="btn btn-danger">
                 <i class="bi bi-trash"></i> Delete
             </button>
@@ -32,6 +37,5 @@
                 <i class="bi bi-arrow-left"></i> Back to List
             </a>
         </form>
-
     </div>
 </div>

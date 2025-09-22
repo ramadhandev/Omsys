@@ -8,7 +8,7 @@
         public string UnitName { get; set; } = string.Empty;
         public string Brand { get; set; } = string.Empty;
         public string ComponentName { get; set; } = string.Empty;
-        public string SymptomDescription { get; set; } = string.Empty;
+        public string SymptomName { get; set; } = string.Empty;
         public List<StepView> Steps { get; set; } = new();
     }
 

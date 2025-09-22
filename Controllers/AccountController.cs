@@ -20,9 +20,16 @@ namespace OMSys.Controllers
         [AllowAnonymous]
         public IActionResult Login(string? returnUrl = null)
         {
+            
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+
             ViewData["ReturnUrl"] = returnUrl;
             return View(new Login());
         }
+
 
         [HttpPost]
         [AllowAnonymous]

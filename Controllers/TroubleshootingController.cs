@@ -14,16 +14,28 @@ namespace OMSys.Controllers
             _context = context;
         }
 
-        // Index: menampilkan list gejala
-        public IActionResult Index()
+        public IActionResult Index(string? search)
         {
-            var data = _context.Symptoms
+            var dataQuery = _context.Symptoms
                 .Include(s => s.Component!)
                     .ThenInclude(c => c.Unit!)
                 .Include(s => s.DiagnosisSteps)
                     .ThenInclude(ds => ds.StepResults)
-                        .ThenInclude(sr => sr.Solution) // pastikan Solution dari DB
-                .ToList();
+                        .ThenInclude(sr => sr.Solution)
+                .AsQueryable();
+
+            // Filtering search
+            if (!string.IsNullOrEmpty(search))
+            {
+                dataQuery = dataQuery.Where(s =>
+                    (s.Description != null && s.Description.Contains(search)) ||
+                    (s.Component != null && s.Component.Name.Contains(search)) ||
+                    (s.Component != null && s.Component.Unit != null && s.Component.Unit.UnitName.Contains(search)) ||
+                    (s.Component != null && s.Component.Unit != null && s.Component.Unit.Brand.Contains(search))
+                );
+            }
+
+            var data = dataQuery.ToList();
 
             if (data.Count == 0)
             {
@@ -35,7 +47,8 @@ namespace OMSys.Controllers
                 UnitName = "Belum ada data",
                 Brand = "-",
                 ComponentName = "-",
-                SymptomDescription = "-"
+                SymptomName = "-",
+                Steps = new List<StepView>()
             }
         });
             }
@@ -47,21 +60,23 @@ namespace OMSys.Controllers
                 UnitName = symptom.Component?.Unit?.UnitName ?? "-",
                 Brand = symptom.Component?.Unit?.Brand ?? "-",
                 ComponentName = symptom.Component?.Name ?? "-",
-                SymptomDescription = symptom.Description ?? "-",
+                SymptomName = symptom.SymptomName ?? "-",
                 Steps = symptom.DiagnosisSteps
                     .SelectMany((ds, index) => ds.StepResults.Select(sr => new StepView
                     {
                         StepNumber = index + 1,
                         Instruction = ds.Instruction ?? "-",
                         Result = sr.ResultOption ?? "-",
-                        Diagnosis = ds.Diagnosis ?? "-",   // ambil dari database
-                        
+                        Diagnosis = ds.Diagnosis ?? "-",
+                        Solution = sr.Solution?.IndicationAndRepair ?? "-"
                     }))
                     .ToList()
             }).ToList();
 
+            ViewBag.Search = search; // supaya input tetap muncul di view
             return View(vmList);
         }
+
 
 
         public IActionResult Details(int id)
@@ -83,7 +98,7 @@ namespace OMSys.Controllers
                 UnitName = symptom.Component?.Unit?.UnitName ?? "-",
                 Brand = symptom.Component?.Unit?.Brand ?? "-",
                 ComponentName = symptom.Component?.Name ?? "-",
-                SymptomDescription = symptom.Description ?? "-",
+                SymptomName = symptom.SymptomName ?? "-",
                 Steps = symptom.DiagnosisSteps
                     .SelectMany(ds => ds.StepResults.Select((sr, index) => new StepView
                     {

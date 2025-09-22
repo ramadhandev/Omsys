@@ -2,6 +2,7 @@
 
 @{
     Layout = "_LayoutUser";
+    string search = Context.Request.Query["search"].FirstOrDefault() ?? "";
 }
 
 <div class="container mt-4">
@@ -10,28 +11,40 @@
         <p class="text-muted">Topik pemecahan masalah umum: Trouble / Kerusakan / Gejala</p>
 
         <form method="get" class="d-flex justify-content-center">
-            <input type="text" name="search" value="@Context.Request.Query["search"]"
+            <input type="text" name="search" value="@search"
                    class="form-control w-50" placeholder="Cari kerusakan atau sistem operasi..." />
-            <button type="submit" class="btn btn-outline-danger ms-2">
+            <button type="submit" class="btn btn-outline-primary ms-2">
                 <i class="bi bi-search"></i>
             </button>
         </form>
     </div>
 
     <h4 class="fw-bold text-center mb-3">Kerusakan / Gejala</h4>
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach (var item in Model)
+        @if (Model != null && Model.Any())
         {
-            <div class="col">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h6 class="text-muted">@item.UnitName / @item.Brand</h6>
-                        <h5 class="card-title text-danger fw-bold">@item.ComponentName</h5>
-                        <p class="card-text">@item.SymptomDescription</p>
-                        <a asp-action="Details" asp-route-id="@item.SymptomId"
-                           class="btn btn-outline-danger">Baca langkah perbaikan...</a>
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h6 class="text-muted">@item.UnitName / @item.Brand</h6>
+                            <h5 class="card-title text-danger fw-bold">@item.ComponentName</h5>
+                            <p class="card-text">@item.SymptomName</p>
+                            <a asp-action="Details" asp-route-id="@item.SymptomId"
+                               class="btn btn-outline-danger">
+                                Baca langkah perbaikan...
+                            </a>
+                        </div>
                     </div>
                 </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center text-muted">
+                <p>Tidak ada data yang sesuai dengan pencarian Anda.</p>
             </div>
         }
     </div>
