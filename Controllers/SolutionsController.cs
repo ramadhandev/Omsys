@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,11 +18,56 @@ namespace OMSys.Controllers
         }
 
         // GET: Solutions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? symptomId, int page = 1, int pageSize = 10)
         {
-            var applicationDbContext = _context.Solutions.Include(s => s.Symptom);
-            return View(await applicationDbContext.ToListAsync());
+            var query = _context.Solutions
+                .Include(s => s.Symptom)
+                .AsQueryable();
+
+            // Filtering berdasarkan SymptomId
+            if (symptomId.HasValue && symptomId.Value > 0)
+            {
+                query = query.Where(s => s.SymptomId == symptomId.Value);
+            }
+
+            // Pagination
+            var totalItems = await query.CountAsync();
+            var solutions = await query
+                .OrderBy(s => s.SolutionId)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            // Dropdown data
+            ViewData["Symptoms"] = new SelectList(_context.Symptoms.OrderBy(s => s.SymptomName), "SymptomId", "SymptomName", symptomId);
+
+            ViewData["SymptomId"] = symptomId;
+            ViewData["Page"] = page;
+            ViewData["PageSize"] = pageSize;
+            ViewData["TotalItems"] = totalItems;
+
+            return View(solutions);
         }
+
+
+        // POST: Solutions/BulkDelete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BulkDelete(int[] selectedIds)
+        {
+            if (selectedIds != null && selectedIds.Length > 0)
+            {
+                var solutions = await _context.Solutions
+                    .Where(s => selectedIds.Contains(s.SolutionId))
+                    .ToListAsync();
+
+                _context.Solutions.RemoveRange(solutions);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // GET: Solutions/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -59,7 +100,7 @@ namespace OMSys.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SolutionId,SymptomId,Title,Description,SpareParts")] Solution solution)
+        public async Task<IActionResult> Create([Bind("SolutionId,SymptomId,IndicationAndRepair")] Solution solution)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +134,7 @@ namespace OMSys.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SolutionId,SymptomId,Title,Description,SpareParts")] Solution solution)
+        public async Task<IActionResult> Edit(int id, [Bind("SolutionId,SymptomId,IndicationAndRepair")] Solution solution)
         {
             if (id != solution.SolutionId)
             {

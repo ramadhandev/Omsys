@@ -9,6 +9,10 @@ D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\OMSys.pdb
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Azure.Core.dll
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Azure.Identity.dll
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Humanizer.dll
+D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Build.dll
@@ -40,6 +44,9 @@ D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.Configurat
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
@@ -263,9 +270,11 @@ D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.GeneratedMSBuildEditorCon
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.AssemblyInfoInputs.cache
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.AssemblyInfo.cs
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.csproj.CoreCompileInputs.cache
+D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.MvcApplicationPartsAssemblyInfo.cs
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.MvcApplicationPartsAssemblyInfo.cache
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.RazorAssemblyInfo.cache
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.RazorAssemblyInfo.cs
+D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.sourcelink.json
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\staticwebassets.build.json
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\staticwebassets.development.json
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\staticwebassets\msbuild.OMSys.Microsoft.AspNetCore.StaticWebAssets.props
@@ -282,11 +291,3 @@ D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\refint\OMSys.dll
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.pdb
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.genruntimeconfig.cache
 D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\ref\OMSys.dll
-D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
-D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
-D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
-D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
-D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
-D:\Project aplikasi\OMSys\OMSys\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
-D:\Project aplikasi\OMSys\OMSys\obj\Debug\net8.0\OMSys.MvcApplicationPartsAssemblyInfo.cs

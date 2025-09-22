@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OMSys.Data;
 using OMSys.Models;
@@ -22,10 +18,108 @@ namespace OMSys.Controllers
         }
 
         // GET: Units
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search, string brandFilter, string typeFilter, int page = 1, int pageSize = 10)
         {
-            return View(await _context.Units.ToListAsync());
+            // Ambil query awal
+            var query = _context.Units.AsQueryable();
+
+            // 1. Search text filter
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(u =>
+                    (u.UnitName != null && u.UnitName.Contains(search)) ||
+                    (u.Brand != null && u.Brand.Contains(search)) ||
+                    (u.Type != null && u.Type.Contains(search))
+                );
+            }
+
+            // 2. Filter by Brand
+            if (!string.IsNullOrEmpty(brandFilter))
+            {
+                query = query.Where(u => u.Brand == brandFilter);
+            }
+
+            // 3. Filter by Type
+            if (!string.IsNullOrEmpty(typeFilter))
+            {
+                query = query.Where(u => u.Type == typeFilter);
+            }
+
+            // 4. Hitung total item untuk pagination
+            var totalItems = await query.CountAsync();
+
+            // 5. Ambil data dengan pagination
+            var units = await query
+                .OrderBy(u => u.UnitName)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            // 6. ViewBag untuk Razor
+            ViewBag.Search = search;
+            ViewBag.BrandFilter = brandFilter;
+            ViewBag.TypeFilter = typeFilter;
+            ViewBag.Page = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalItems = totalItems;
+            ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            ViewBag.BrandList = await _context.Units
+                .Select(u => u.Brand)
+                .Where(b => b != null)          // hanya ambil yang bukan null
+                .Distinct()
+                .ToListAsync();
+
+            ViewBag.TypeList = await _context.Units
+                .Select(u => u.Type)
+                .Where(t => t != null)          // hanya ambil yang bukan null
+                .Distinct()
+                .ToListAsync();
+
+            return View(units);
         }
+
+        // POST: Units/BulkDelete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BulkDelete(int[] selectedIds)
+        {
+            if (selectedIds != null && selectedIds.Length > 0)
+            {
+                using var transaction = await _context.Database.BeginTransactionAsync();
+                try
+                {
+                    var units = await _context.Units
+                        .Where(u => selectedIds.Contains(u.UnitId))
+                        .ToListAsync();
+
+                    foreach (var unit in units)
+                    {
+                        // Set UnitId to null for all related components
+                        var components = await _context.Components
+                            .Where(c => c.UnitId == unit.UnitId)
+                            .ToListAsync();
+
+                        foreach (var component in components)
+                        {
+                            component.UnitId = null;
+                        }
+                    }
+
+                    _context.Units.RemoveRange(units);
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    TempData["ErrorMessage"] = $"Error deleting units: {ex.Message}";
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // GET: Units/Details/5
         public async Task<IActionResult> Details(int? id)

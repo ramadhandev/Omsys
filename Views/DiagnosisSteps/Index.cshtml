@@ -1,47 +1,156 @@
 ﻿@model IEnumerable<OMSys.Models.DiagnosisStep>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Diagnosis Steps";
+    var totalItems = ViewBag.TotalItems as int? ?? 0;
+    var page = ViewBag.Page as int? ?? 1;
+    var pageSize = ViewBag.PageSize as int? ?? 10;
+    var search = ViewBag.Search as string;
+    var symptomName = ViewBag.SymptomName as string;
+    var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
 }
 
-<h1>Index</h1>
+<h1 class="mb-4">Diagnosis Steps</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StepOrder)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Instruction)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Symptom)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StepOrder)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Instruction)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Symptom.SymptomName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StepId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StepId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StepId">Delete</a>
-            </td>
-        </tr>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Filters</h5>
+    </div>
+    <div class="card-body">
+        <form method="get" asp-action="Index" class="row g-3 align-items-end">
+            <input type="hidden" name="page" value="1" />
+
+            <div class="col-md-4">
+                <label for="search" class="form-label">Search Instructions</label>
+                <input type="text" name="search" value="@search" class="form-control" placeholder="Search instructions...">
+            </div>
+
+            <div class="col-md-4">
+                <label for="symptomName" class="form-label">Filter by Symptom</label>
+                <select name="symptomName" class="form-select">
+                    <option value="">All Symptoms</option>
+                    @if (ViewBag.SymptomNames != null)
+                    {
+                        foreach (var item in ViewBag.SymptomNames)
+                        {
+                            <option value="@item.Text" selected="@(item.Text == symptomName ? "selected" : null)">@item.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary me-2">Apply Filters</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Clear Filters</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <span class="text-muted">Total: @totalItems items</span>
+        @if (!string.IsNullOrEmpty(symptomName))
+        {
+            <span class="badge bg-info ms-2">Symptom: @symptomName</span>
+        }
+    </div>
+    <a asp-action="Create" class="btn btn-success">+ Create New</a>
+</div>
+
+<form asp-action="BulkDelete" method="post">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    <input type="checkbox" id="selectAll" onclick="toggleAll(this)" />
+                </th>
+                <th>@Html.DisplayNameFor(model => model.StepOrder)</th>
+                <th>@Html.DisplayNameFor(model => model.Instruction)</th>
+                <th>@Html.DisplayNameFor(model => model.Symptom)</th>
+                <th style="width:180px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selectedIds" value="@item.StepId" />
+                        </td>
+                        <td>@item.StepOrder</td>
+                        <td>@item.Instruction</td>
+                        <td>@(item.Symptom?.SymptomName ?? "N/A")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.StepId" class="btn btn-sm btn-primary">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.StepId" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center py-4">
+                        <div class="text-muted">
+                            <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+                            <p class="mt-2">No diagnosis steps found</p>
+                            @if (!string.IsNullOrEmpty(search) || !string.IsNullOrEmpty(symptomName))
+                            {
+                                <a asp-action="Index" class="btn btn-sm btn-outline-primary mt-2">Clear filters</a>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.Any())
+    {
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete the selected items?')">Delete Selected</button>
+    }
+</form>
+
+<!-- Pagination -->
+@if (totalPages > 1)
+{
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(page == 1 ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(page-1)"
+                   asp-route-search="@search"
+                   asp-route-symptomName="@symptomName">Previous</a>
+            </li>
+
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == page ? "active" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@i"
+                       asp-route-search="@search"
+                       asp-route-symptomName="@symptomName">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(page == totalPages ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(page+1)"
+                   asp-route-search="@search"
+                   asp-route-symptomName="@symptomName">Next</a>
+            </li>
+        </ul>
+    </nav>
 }
-    </tbody>
-</table>
+
+
+@section Scripts {
+    <script src="~/js/Custom.js"></script>
+}
+

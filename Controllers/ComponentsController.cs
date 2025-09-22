@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +17,66 @@ namespace OMSys.Controllers
             _context = context;
         }
 
-        // GET: Components
-        public async Task<IActionResult> Index()
+        // GET: Components (dengan search & pagination)
+        public async Task<IActionResult> Index(int? unitId, int pageNumber = 1)
         {
-            var applicationDbContext = _context.Components.Include(c => c.Unit);
-            return View(await applicationDbContext.ToListAsync());
+            int pageSize = 10;
+
+            var query = _context.Components
+                .Include(c => c.Unit)
+                .AsQueryable();
+
+            // Filter by unit
+            if (unitId.HasValue && unitId > 0)
+            {
+                query = query.Where(c => c.UnitId == unitId);
+            }
+
+            int totalItems = await query.CountAsync();
+            var components = await query
+                .OrderBy(c => c.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            // Get units for filter dropdown
+            ViewBag.Units = new SelectList(_context.Units, "UnitId", "UnitName", unitId);
+
+            ViewBag.SelectedUnitId = unitId;
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            return View(components);
         }
+
+        // POST: Components/DeleteSelected
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteSelected(int[] selectedIds)
+        {
+            if (selectedIds != null && selectedIds.Length > 0)
+            {
+                // Cek apakah masih ada Symptom terkait
+                var hasSymptoms = await _context.Symptoms
+                    .AnyAsync(s => selectedIds.Contains(s.ComponentId));
+
+                if (hasSymptoms)
+                {
+                    TempData["ErrorMessage"] = "Some components cannot be deleted because they have associated symptoms.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var items = await _context.Components
+                    .Where(c => selectedIds.Contains(c.ComponentId))
+                    .ToListAsync();
+
+                _context.Components.RemoveRange(items);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // GET: Components/Details/5
         public async Task<IActionResult> Details(int? id)

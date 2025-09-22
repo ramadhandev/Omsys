@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,11 +17,65 @@ namespace OMSys.Controllers
             _context = context;
         }
 
-        // GET: StepResults
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? stepId, string search, int page = 1, int pageSize = 10)
         {
-            var applicationDbContext = _context.StepResults.Include(s => s.NextStep).Include(s => s.Solution).Include(s => s.Step);
-            return View(await applicationDbContext.ToListAsync());
+            var query = _context.StepResults
+                .Include(s => s.Step)
+                .Include(s => s.Solution)
+                .Include(s => s.NextStep)
+                .AsQueryable();
+
+            // Filter by Step
+            if (stepId.HasValue)
+            {
+                query = query.Where(sr => sr.StepId == stepId.Value);
+            }
+
+            // Search by keyword
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(sr =>
+                 (sr.ResultOption ?? "").Contains(search) ||
+                 (sr.Step != null && (sr.Step.Instruction ?? "").Contains(search)) ||
+                 (sr.Solution != null && (sr.Solution.IndicationAndRepair ?? "").Contains(search)));
+
+            }
+
+            // Pagination
+            var totalItems = await query.CountAsync();
+            var stepResults = await query
+                .OrderBy(sr => sr.ResultId)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.StepId = stepId;
+            ViewBag.Search = search;
+            ViewBag.Page = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalItems = totalItems;
+            ViewData["Steps"] = new SelectList(_context.DiagnosisSteps.ToList(), "StepId", "Instruction", stepId);
+
+            return View(stepResults);
+        }
+
+
+        // POST: StepResults/BulkDelete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BulkDelete(int[] selectedIds)
+        {
+            if (selectedIds != null && selectedIds.Length > 0)
+            {
+                var results = await _context.StepResults
+                    .Where(sr => selectedIds.Contains(sr.ResultId))
+                    .ToListAsync();
+
+                _context.StepResults.RemoveRange(results);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: StepResults/Details/5
@@ -53,7 +103,7 @@ namespace OMSys.Controllers
         public IActionResult Create()
         {
             ViewData["NextStepId"] = new SelectList(_context.DiagnosisSteps, "StepId", "Instruction");
-            ViewData["SolutionId"] = new SelectList(_context.Solutions, "SolutionId", "Title");
+            ViewData["SolutionId"] = new SelectList(_context.Solutions, "SolutionId", "IndicationAndRepair");
             ViewData["StepId"] = new SelectList(_context.DiagnosisSteps, "StepId", "Instruction");
             return View();
         }
@@ -72,7 +122,7 @@ namespace OMSys.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["NextStepId"] = new SelectList(_context.DiagnosisSteps, "StepId", "Instruction", stepResult.NextStepId);
-            ViewData["SolutionId"] = new SelectList(_context.Solutions, "SolutionId", "Title", stepResult.SolutionId);
+            ViewData["SolutionId"] = new SelectList(_context.Solutions, "SolutionId", "IndicationAndRepair", stepResult.SolutionId);
             ViewData["StepId"] = new SelectList(_context.DiagnosisSteps, "StepId", "Instruction", stepResult.StepId);
             return View(stepResult);
         }
@@ -91,7 +141,7 @@ namespace OMSys.Controllers
                 return NotFound();
             }
             ViewData["NextStepId"] = new SelectList(_context.DiagnosisSteps, "StepId", "Instruction", stepResult.NextStepId);
-            ViewData["SolutionId"] = new SelectList(_context.Solutions, "SolutionId", "Title", stepResult.SolutionId);
+            ViewData["SolutionId"] = new SelectList(_context.Solutions, "SolutionId", "IndicationAndRepair", stepResult.SolutionId);
             ViewData["StepId"] = new SelectList(_context.DiagnosisSteps, "StepId", "Instruction", stepResult.StepId);
             return View(stepResult);
         }
@@ -129,7 +179,7 @@ namespace OMSys.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["NextStepId"] = new SelectList(_context.DiagnosisSteps, "StepId", "Instruction", stepResult.NextStepId);
-            ViewData["SolutionId"] = new SelectList(_context.Solutions, "SolutionId", "Title", stepResult.SolutionId);
+            ViewData["SolutionId"] = new SelectList(_context.Solutions, "SolutionId", "IndicationAndRepair", stepResult.SolutionId);
             ViewData["StepId"] = new SelectList(_context.DiagnosisSteps, "StepId", "Instruction", stepResult.StepId);
             return View(stepResult);
         }

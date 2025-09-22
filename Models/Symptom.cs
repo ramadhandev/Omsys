@@ -9,7 +9,7 @@
         public string? Description { get; set; }
 
         // Navigation
-        public Component? Component { get; set; }
+        public Component? Component { get; set; } 
         public ICollection<DiagnosisStep> DiagnosisSteps { get; set; } = new List<DiagnosisStep>();
         public ICollection<Solution> Solutions { get; set; } = new List<Solution>();
     }

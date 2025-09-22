@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,11 +18,66 @@ namespace OMSys.Controllers
             _context = context;
         }
 
-        // GET: Symptoms
-        public async Task<IActionResult> Index()
+        // GET: Symptoms (dengan search & pagination)
+        public async Task<IActionResult> Index(string searchString, int? componentId, int pageNumber = 1)
         {
-            var applicationDbContext = _context.Symptoms.Include(s => s.Component);
-            return View(await applicationDbContext.ToListAsync());
+            int pageSize = 10; // jumlah data per halaman
+
+            var query = _context.Symptoms
+                .Include(s => s.Component)
+                .AsQueryable();
+
+            // Search functionality
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(s =>
+                    (s.SymptomName != null && s.SymptomName.Contains(searchString)) ||
+                    (s.SymptomCode != null && s.SymptomCode.Contains(searchString)) ||
+                    (s.Description != null && s.Description.Contains(searchString)) ||
+                    (s.Component != null && s.Component.Name.Contains(searchString)));
+            }
+
+
+            // Filter by component
+            if (componentId.HasValue && componentId > 0)
+            {
+                query = query.Where(s => s.ComponentId == componentId);
+            }
+
+            int totalItems = await query.CountAsync();
+            var symptoms = await query
+                .OrderBy(s => s.SymptomName)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            // Get components for filter dropdown
+            ViewBag.Components = new SelectList(_context.Components, "ComponentId", "Name", componentId);
+
+            ViewBag.CurrentFilter = searchString;
+            ViewBag.SelectedComponentId = componentId;
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            return View(symptoms);
+        }
+
+        // POST: Symptoms/DeleteSelected
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteSelected(int[] selectedIds)
+        {
+            if (selectedIds != null && selectedIds.Length > 0)
+            {
+                var items = await _context.Symptoms
+                    .Where(s => selectedIds.Contains(s.SymptomId))
+                    .ToListAsync();
+
+                _context.Symptoms.RemoveRange(items);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Symptoms/Details/5

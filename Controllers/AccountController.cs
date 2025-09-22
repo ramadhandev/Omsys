@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OMSys.Models;
 
-
 namespace OMSys.Controllers
 {
     public class AccountController : Controller
@@ -19,7 +18,7 @@ namespace OMSys.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login(string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View(new Login());
@@ -28,17 +27,23 @@ namespace OMSys.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(Login model, string returnUrl = null)
+        public async Task<IActionResult> Login(Login model, string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
 
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _userManager.FindByNameAsync(model.Username);
+            var user = await _userManager.FindByNameAsync(model.Username!);
             if (user != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(
+                    user,
+                    model.Password!,
+                    model.RememberMe,
+                    lockoutOnFailure: false
+                );
+
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
@@ -48,7 +53,7 @@ namespace OMSys.Controllers
                 }
             }
 
-            ModelState.AddModelError("", "Invalid login attempt");
+            ModelState.AddModelError(string.Empty, "Invalid login attempt");
             return View(model);
         }
 

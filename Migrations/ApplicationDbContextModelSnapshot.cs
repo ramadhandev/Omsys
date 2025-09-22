@@ -282,18 +282,12 @@ namespace OMSys.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SolutionId"));
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SpareParts")
+                    b.Property<string>("IndicationAndRepair")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SymptomId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SolutionId");
 
@@ -403,6 +397,9 @@ namespace OMSys.Migrations
                     b.Property<string>("SymptomDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SymptomId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UnitName")
                         .IsRequired()

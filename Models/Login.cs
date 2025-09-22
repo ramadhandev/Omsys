@@ -6,11 +6,11 @@ namespace OMSys.Models
     {
         [Required]
         [Display(Name = "Username")]
-        public string Username { get; set; }
+        public string Username { get; set; } = null!;
 
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string Password { get; set; } = null!;
 
         [Display(Name = "Remember Me")]
         public bool RememberMe { get; set; }

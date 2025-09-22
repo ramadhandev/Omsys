@@ -2,6 +2,8 @@
 {
     public class TroubleshootingView
     {
+       
+        public int SymptomId { get; set; }
         public int ComponentId { get; set; }
         public string UnitName { get; set; } = string.Empty;
         public string Brand { get; set; } = string.Empty;

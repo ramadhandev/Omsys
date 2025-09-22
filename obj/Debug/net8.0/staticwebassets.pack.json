@@ -5,12 +5,20 @@
       "PackagePath": "staticwebassets\\OMSys.bundle.scp.css"
     },
     {
+      "Id": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\css\\CustomStyle.css",
+      "PackagePath": "staticwebassets\\css\\CustomStyle.css"
+    },
+    {
       "Id": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\js\\Custom.js",
+      "PackagePath": "staticwebassets\\js\\Custom.js"
     },
     {
       "Id": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\js\\site.js",

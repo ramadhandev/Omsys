@@ -1,4 +1,5 @@
 ﻿@model OMSys.Models.Unit
+
 @{
     ViewData["Title"] = "Delete Unit";
 }
@@ -12,18 +13,18 @@
 
         <dl class="row">
             <dt class="col-sm-3">Unit Name</dt>
-            <dd class="col-sm-9">@Model.UnitName</dd>
+            <dd class="col-sm-9 mb-3">@Model?.UnitName</dd>
 
             <dt class="col-sm-3">Brand</dt>
-            <dd class="col-sm-9">@Model.Brand</dd>
+            <dd class="col-sm-9 mb-3">@Model?.Brand</dd>
 
             <dt class="col-sm-3">Type</dt>
-            <dd class="col-sm-9">@Model.Type</dd>
+            <dd class="col-sm-9 mb-3">@Model?.Type</dd>
         </dl>
 
-        <form asp-action="Delete">
+        <form asp-action="Delete" method="post">
             <input type="hidden" asp-for="UnitId" />
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between gap-2">
                 <a asp-action="Index" class="btn btn-secondary">
                     <i class="bi bi-arrow-left"></i> Cancel
                 </a>

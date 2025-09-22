@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vszCdeVxqQKTHK97o3PbSz1PkMyyyKfYfzJYfAWyxsQ=",
+  "Hash": "l5s33tj2dgrXV9ZxkouKkR8ZPNv3QbUz0ei5kuODDg0=",
   "Source": "OMSys",
   "BasePath": "_content/OMSys",
   "Mode": "Default",
@@ -1195,6 +1195,25 @@
       "OriginalItemSpec": "D:\\Project aplikasi\\OMSys\\OMSys\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\OMSys.bundle.scp.css"
     },
     {
+      "Identity": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\css\\CustomStyle.css",
+      "SourceId": "OMSys",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\",
+      "BasePath": "_content/OMSys",
+      "RelativePath": "css/CustomStyle.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\CustomStyle.css"
+    },
+    {
       "Identity": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\css\\site.css",
       "SourceId": "OMSys",
       "SourceType": "Discovered",
@@ -1231,6 +1250,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\js\\Custom.js",
+      "SourceId": "OMSys",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\",
+      "BasePath": "_content/OMSys",
+      "RelativePath": "js/Custom.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Custom.js"
     },
     {
       "Identity": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\js\\site.js",

@@ -1,53 +1,112 @@
 ﻿@model IEnumerable<OMSys.Models.StepResult>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Step Results";
+    int page = ViewBag.Page ?? 1;
+    int pageSize = ViewBag.PageSize ?? 10;
+    int totalItems = ViewBag.TotalItems ?? 0;
+    int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+    var steps = ViewData["Steps"] as SelectList;
+    int? selectedStepId = ViewBag.StepId as int?;
+    string search = ViewBag.Search as string ?? "";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-auto">
+            <a asp-action="Create" class="btn btn-primary btn-sm">+ Create New</a>
+        </div>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ResultOption)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Step)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Solution)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NextStep)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResultOption)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Step.Instruction)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Solution.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NextStep.Instruction)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ResultId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ResultId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ResultId">Delete</a>
-            </td>
-        </tr>
+    <div class="card shadow-sm">
+        <!-- Header -->
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+
+                <!-- Filter + Search -->
+                <form method="get" class="d-flex align-items-center gap-2">
+                    <!-- Step Filter -->
+                    <select name="stepId" class="form-select form-select-sm" style="min-width: 200px;">
+                        <option value="">-- All Steps --</option>
+                        @if (steps != null)
+                        {
+                            foreach (var step in steps)
+                            {
+                                var stepIdValue = step.Value;
+                                var isSelected = selectedStepId.HasValue && stepIdValue == selectedStepId.Value.ToString();
+                                <option value="@stepIdValue" selected="@(isSelected ? "selected" : null)">
+                                    @step.Text
+                                </option>
+                            }
+                        }
+                    </select>
+
+                    <!-- Search Box -->
+                    <input type="text" name="search" value="@search"
+                           placeholder="Search Result / Instruction..."
+                           class="form-control form-control-sm" style="min-width: 250px;" />
+
+                    <button class="btn btn-dark btn-sm" type="submit" style="min-width: 150px;">Apply</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Table Body -->
+        <div class="card-body">
+            <form asp-action="BulkDelete" method="post">
+                <table class="table table-hover table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width:30px;"><input type="checkbox" id="selectAll" /></th>
+                            <th>@Html.DisplayNameFor(model => model.ResultOption)</th>
+                            <th>@Html.DisplayNameFor(model => model.Step)</th>
+                            <th>@Html.DisplayNameFor(model => model.Solution)</th>
+                            <th>@Html.DisplayNameFor(model => model.NextStep)</th>
+                            <th style="width:160px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><input type="checkbox" name="selectedIds" value="@item.ResultId" /></td>
+                                <td>@item.ResultOption</td>
+                                <td>@item.Step?.Instruction</td>
+                                <td>@item.Solution?.IndicationAndRepair</td>
+                                <td>@item.NextStep?.Instruction</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.ResultId" class="btn btn-warning btn-sm">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.ResultId" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <button type="submit" class="btn btn-danger mb-3" onclick="return confirm('Are you sure to delete selected items?')">Delete Selected</button>
+            </form>
+
+            <!-- Pagination -->
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item @(page == 1 ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = page - 1, stepId = selectedStepId, search = search })">Previous</a>
+                    </li>
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(page == i ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i, stepId = selectedStepId, search = search })">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(page == totalPages ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = page + 1, stepId = selectedStepId, search = search })">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/Custom.js"></script>
 }
-    </tbody>
-</table>

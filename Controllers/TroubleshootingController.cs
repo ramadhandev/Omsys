@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using OMSys.Data;
 using OMSys.Models;
-using System.Linq;
 
 namespace OMSys.Controllers
 {
@@ -19,14 +18,14 @@ namespace OMSys.Controllers
         public IActionResult Index()
         {
             var data = _context.Symptoms
-                .Include(s => s.Component)
-                    .ThenInclude(c => c.Unit)
+                .Include(s => s.Component!)
+                    .ThenInclude(c => c.Unit!)
                 .Include(s => s.DiagnosisSteps)
                     .ThenInclude(ds => ds.StepResults)
                         .ThenInclude(sr => sr.Solution) // pastikan Solution dari DB
                 .ToList();
 
-            if (!data.Any())
+            if (data.Count == 0)
             {
                 return View(new List<TroubleshootingView>
         {
@@ -43,6 +42,7 @@ namespace OMSys.Controllers
 
             var vmList = data.Select(symptom => new TroubleshootingView
             {
+                SymptomId = symptom.SymptomId,
                 ComponentId = symptom.ComponentId,
                 UnitName = symptom.Component?.Unit?.UnitName ?? "-",
                 Brand = symptom.Component?.Unit?.Brand ?? "-",
@@ -55,7 +55,7 @@ namespace OMSys.Controllers
                         Instruction = ds.Instruction ?? "-",
                         Result = sr.ResultOption ?? "-",
                         Diagnosis = ds.Diagnosis ?? "-",   // ambil dari database
-                        Solution = sr.Solution?.Description ?? "-" // ambil dari master data Solution
+                        
                     }))
                     .ToList()
             }).ToList();
@@ -67,12 +67,12 @@ namespace OMSys.Controllers
         public IActionResult Details(int id)
         {
             var symptom = _context.Symptoms
-                .Include(s => s.Component)
-                    .ThenInclude(c => c.Unit)
+                .Include(s => s.Component!)
+                    .ThenInclude(c => c.Unit!)
                 .Include(s => s.DiagnosisSteps)
                     .ThenInclude(ds => ds.StepResults)
                         .ThenInclude(sr => sr.Solution)
-                .FirstOrDefault(s => s.ComponentId == id);
+                .FirstOrDefault(s => s.SymptomId == id);
 
             if (symptom == null)
                 return NotFound();
@@ -90,8 +90,8 @@ namespace OMSys.Controllers
                         StepNumber = index + 1,
                         Instruction = ds.Instruction ?? "-",
                         Result = sr.ResultOption ?? "-",
-                        Diagnosis = sr.Solution?.Description ?? "-", // ambil dari Description
-                        Solution = sr.Solution?.Title ?? "-"        // ambil dari Title
+                        Diagnosis = ds.Diagnosis ?? "-",
+                        Solution = sr.Solution?.IndicationAndRepair ?? "-" 
                     }))
                     .ToList()
             };

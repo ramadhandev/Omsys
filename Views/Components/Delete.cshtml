@@ -1,39 +1,37 @@
 ﻿@model OMSys.Models.Component
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Component";
 }
 
-<h1>Delete</h1>
+<h1 class="mb-4 text-danger">Delete Component</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Component</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Unit)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Unit.UnitId)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="ComponentId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<h4>Are you sure you want to delete this?</h4>
+<hr />
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Name)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Unit)</dt>
+            <dd class="col-sm-9">@(Model.Unit?.UnitName ?? "N/A")</dd>
+        </dl>
+
+        <form asp-action="Delete" asp-controller="Components" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="ComponentId" />
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Delete
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </form>
+
+    </div>
 </div>

@@ -1,45 +1,51 @@
 ﻿@model OMSys.Models.StepResult
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Step Result";
 }
 
-<h1>Create</h1>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Create Step Result</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-<h4>StepResult</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="StepId" class="control-label"></label>
-                <select asp-for="StepId" class ="form-control" asp-items="ViewBag.StepId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ResultOption" class="control-label"></label>
-                <input asp-for="ResultOption" class="form-control" />
-                <span asp-validation-for="ResultOption" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NextStepId" class="control-label"></label>
-                <select asp-for="NextStepId" class ="form-control" asp-items="ViewBag.NextStepId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="SolutionId" class="control-label"></label>
-                <select asp-for="SolutionId" class ="form-control" asp-items="ViewBag.SolutionId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label asp-for="StepId" class="form-label">Step</label>
+                    <select asp-for="StepId" class="form-select" asp-items="ViewBag.StepId"></select>
+                    <span asp-validation-for="StepId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ResultOption" class="form-label"></label>
+                    <input asp-for="ResultOption" class="form-control" />
+                    <span asp-validation-for="ResultOption" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="NextStepId" class="form-label"></label>
+                    <select asp-for="NextStepId" class="form-select" asp-items="ViewBag.NextStepId"></select>
+                    <span asp-validation-for="NextStepId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="SolutionId" class="form-label"></label>
+                    <select asp-for="SolutionId" class="form-select" asp-items="ViewBag.SolutionId"></select>
+                    <span asp-validation-for="SolutionId" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success">Create</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

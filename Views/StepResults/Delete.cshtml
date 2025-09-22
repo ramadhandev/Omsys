@@ -1,45 +1,45 @@
 ﻿@model OMSys.Models.StepResult
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Step Result";
 }
 
-<h1>Delete</h1>
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-header bg-danger text-white text-center py-3">
+            <h3 class="mb-0">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                Confirm Delete
+            </h3>
+        </div>
+        <div class="card-body p-4">
+            <h5 class="text-danger fw-bold">Are you sure you want to delete this Step Result?</h5>
+            <p class="text-muted">This action cannot be undone.</p>
+            <hr />
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>StepResult</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ResultOption)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ResultOption)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Step)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Step.Instruction)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Solution)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Solution.SolutionId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NextStep)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NextStep.Instruction)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="ResultId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+            <dl class="row">
+                <dt class="col-sm-4 fw-semibold">@Html.DisplayNameFor(model => model.ResultOption)</dt>
+                <dd class="col-sm-8">@Model.ResultOption</dd>
+
+                <dt class="col-sm-4 fw-semibold">@Html.DisplayNameFor(model => model.Step.Instruction)</dt>
+                <dd class="col-sm-8">@Model.Step?.Instruction</dd>
+
+                <dt class="col-sm-4 fw-semibold">@Html.DisplayNameFor(model => model.Solution.IndicationAndRepair)</dt>
+                <dd class="col-sm-8">@Model.Solution?.IndicationAndRepair</dd>
+
+                <dt class="col-sm-4 fw-semibold">@Html.DisplayNameFor(model => model.NextStep.Instruction)</dt>
+                <dd class="col-sm-8">@Model.NextStep?.Instruction</dd>
+            </dl>
+
+            <form asp-action="Delete" class="mt-4 d-flex justify-content-between">
+                <input type="hidden" asp-for="ResultId" />
+                <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                    <i class="bi bi-arrow-left-circle"></i> Cancel
+                </a>
+                <button type="submit" class="btn btn-danger px-4">
+                    <i class="bi bi-trash-fill"></i> Delete
+                </button>
+            </form>
+        </div>
+    </div>
 </div>

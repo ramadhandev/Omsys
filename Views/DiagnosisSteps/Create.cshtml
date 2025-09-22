@@ -1,42 +1,49 @@
 ﻿@model OMSys.Models.DiagnosisStep
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Diagnosis Step";
 }
 
-<h1>Create</h1>
+<h1 class="mb-4">@ViewData["Title"]</h1>
 
-<h4>DiagnosisStep</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="SymptomId" class="control-label"></label>
-                <select asp-for="SymptomId" class ="form-control" asp-items="ViewBag.SymptomId"></select>
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SymptomId" class="form-label">Symptom Name</label>
+                <select asp-for="SymptomId" class="form-select" asp-items="ViewBag.SymptomId"></select>
+                <span asp-validation-for="SymptomId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="StepOrder" class="control-label"></label>
+
+            <div class="form-group mb-3">
+                <label asp-for="Diagnosis" class="form-label"></label>
+                <textarea asp-for="Diagnosis" class="form-control"></textarea>
+                <span asp-validation-for="Diagnosis" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group mb-3">
+                <label asp-for="StepOrder" class="form-label"></label>
                 <input asp-for="StepOrder" class="form-control" />
                 <span asp-validation-for="StepOrder" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Instruction" class="control-label"></label>
-                <input asp-for="Instruction" class="form-control" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Instruction" class="form-label"></label>
+                <textarea asp-for="Instruction" class="form-control"></textarea>
                 <span asp-validation-for="Instruction" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
