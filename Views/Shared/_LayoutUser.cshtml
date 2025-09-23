@@ -11,45 +11,49 @@
 </head>
 <body>
     <header class="bg-light border-bottom mb-3">
-        <div class="container d-flex justify-content-between align-items-center py-2">
-            <a class="navbar-brand fw-bold text-danger" asp-controller="Troubleshooting" asp-action="Index">
-                OMSys
-            </a>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-danger" asp-controller="Troubleshooting" asp-action="Index">
+                    OMSys
+                </a>
 
-                    <div class="collapse navbar-collapse justify-content-end">
-                        <ul class="navbar-nav">
+                <!-- Hamburger toggle button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                            @if (User.Identity != null && User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item me-2">
-                                    <a asp-controller="Dashboard" asp-action="Index" class="btn btn-sm btn-outline-secondary">
-                                        Dashboard
-                                    </a>
-                                </li>
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+                    <ul class="navbar-nav">
 
-                                <li class="nav-item">
-                                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
-                                    </form>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <a asp-controller="Account" asp-action="Login" class="btn btn-sm btn-outline-primary">
-                                        Login
-                                    </a>
-                                </li>
-                            }
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item me-2">
+                                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-sm btn-outline-secondary">
+                                    Dashboard
+                                </a>
+                            </li>
 
-                        </ul>
-                    </div>
+                            <li class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Login" class="btn btn-sm btn-outline-primary">
+                                    Login
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
                 </div>
-            </nav>
-
-        </div>
+            </div>
+        </nav>
     </header>
 
     <div class="container">

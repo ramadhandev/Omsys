@@ -1,8 +1,93 @@
 ﻿@{
     ViewData["Title"] = "Dashboard Page";
+    var topSymptoms = ViewBag.TopSymptoms as List<string>;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Selamat Datang </h1>
-    <h1><a>Di Operational Maintenance System</a>.</h1>
+<div class="container mt-4">
+
+    <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold">Selamat Datang</h1>
+        <h2 class="text-muted">Operational Maintenance System</h2>
+    </div>
+
+    <!-- Ringkasan -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <h6>Total Unit</h6>
+                    <h2 class="fw-bold text-primary">@ViewBag.TotalUnit</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <h6>Total Komponen</h6>
+                    <h2 class="fw-bold text-success">@ViewBag.TotalComponent</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <h6>Gejala</h6>
+                    <h2 class="fw-bold text-danger">@ViewBag.TotalSymptom</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <h6>Solusi</h6>
+                    <h2 class="fw-bold text-warning">@ViewBag.TotalSolution</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grafik & List -->
+    <div class="row g-4">
+        <!-- Grafik Gejala -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header fw-bold">Statistik Gejala per Komponen</div>
+                <div class="card-body">
+                    <canvas id="chartSymptoms"
+                            data-labels='@Json.Serialize(ViewBag.ChartLabels ?? new List<string>())'
+                            data-data='@Json.Serialize(ViewBag.ChartData ?? new List<int>())'
+                            width="400" height="300">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Gejala -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header fw-bold">Top 5 Gejala Terbaru</div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @if (topSymptoms != null && topSymptoms.Any())
+                        {
+                            foreach (var item in topSymptoms)
+                            {
+                                <li class="list-group-item">@item</li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item">Belum ada data gejala</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/Custom.js"></script>
+}

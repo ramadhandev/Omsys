@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "CZC27On+kIrNFeR/uvAHUHZujfe6GCb1r/hoqJi218Q=",
+  "Hash": "vuXfuEuF8yCd6wcDVO8ND2MK0ywnmXxlipZysh2Y4TE=",
   "Source": "OMSys",
   "BasePath": "_content/OMSys",
   "Mode": "Default",
@@ -2390,6 +2390,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\1a83b4ba-a5a8-4ae5-b78b-ba01960656a1.jpeg"
+    },
+    {
+      "Identity": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\uploads\\1bf8f1af-70c9-4e6e-99d1-9313c17bc8ce.jpg",
+      "SourceId": "OMSys",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\",
+      "BasePath": "_content/OMSys",
+      "RelativePath": "uploads/1bf8f1af-70c9-4e6e-99d1-9313c17bc8ce.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\1bf8f1af-70c9-4e6e-99d1-9313c17bc8ce.jpg"
     },
     {
       "Identity": "D:\\Project aplikasi\\OMSys\\OMSys\\wwwroot\\uploads\\6955c69d-2310-4f95-9bed-5d739948a8f9.jpeg",
