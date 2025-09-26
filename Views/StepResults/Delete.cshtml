@@ -18,17 +18,17 @@
             <hr />
 
             <dl class="row">
-                <dt class="col-sm-4 fw-semibold">@Html.DisplayNameFor(model => model.ResultOption)</dt>
+                <dt class="col-sm-4 fw-semibold">Result Option</dt>
                 <dd class="col-sm-8">@Model.ResultOption</dd>
 
-                <dt class="col-sm-4 fw-semibold">@Html.DisplayNameFor(model => model.Step.Instruction)</dt>
-                <dd class="col-sm-8">@Model.Step?.Instruction</dd>
+                <dt class="col-sm-4 fw-semibold">Step Instruction</dt>
+                <dd class="col-sm-8">@(Model.Step?.Instruction ?? "N/A")</dd>
 
-                <dt class="col-sm-4 fw-semibold">@Html.DisplayNameFor(model => model.Solution.IndicationAndRepair)</dt>
-                <dd class="col-sm-8">@Model.Solution?.IndicationAndRepair</dd>
+                <dt class="col-sm-4 fw-semibold">Solution Details</dt>
+                <dd class="col-sm-8">@(Model.Solution?.IndicationAndRepair ?? "N/A")</dd>
 
-                <dt class="col-sm-4 fw-semibold">@Html.DisplayNameFor(model => model.NextStep.Instruction)</dt>
-                <dd class="col-sm-8">@Model.NextStep?.Instruction</dd>
+                <dt class="col-sm-4 fw-semibold">Next Step Instruction</dt>
+                <dd class="col-sm-8">@(Model.NextStep?.Instruction ?? "N/A")</dd>
             </dl>
 
             <form asp-action="Delete" class="mt-4 d-flex justify-content-between">

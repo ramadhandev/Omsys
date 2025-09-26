@@ -18,7 +18,7 @@
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
                 <a class="nav-link @((ViewContext.RouteData.Values["controller"]?.ToString() == "Troubleshooting") ? "active" : "")"
-                   asp-controller="Troubleshooting" asp-action="Index">Troubleshooting</a>
+                   asp-controller="Troubleshooting" asp-action="Index">View Page</a>
             </li>
             @if (User.IsInRole("Admin"))
             {
